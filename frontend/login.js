@@ -1,123 +1,129 @@
-/* PASSWORD SHOW / HIDE */
+/* PASSWORD SHOW HIDE */
 
-const togglePassword = document.getElementById("togglePassword");
-const passwordInput = document.getElementById("password");
+const togglePassword =
+document.getElementById("togglePassword");
 
-if (togglePassword && passwordInput) {
-  togglePassword.addEventListener("click", () => {
+const password =
+document.getElementById("password");
 
-    const isPassword = passwordInput.type === "password";
-    passwordInput.type = isPassword ? "text" : "password";
+togglePassword.addEventListener("click",function(){
 
-    togglePassword.classList.toggle("fa-eye");
-    togglePassword.classList.toggle("fa-eye-slash");
+const type =
+password.type === "password" ? "text" : "password";
 
-  });
-}
+password.type = type;
+
+this.classList.toggle("fa-eye");
+this.classList.toggle("fa-eye-slash");
+
+});
 
 
 /* ROLE SWITCHER */
 
 let selectedRole = "student";
 
-function setRole(role, event) {
+function setRole(role,event){
 
-  selectedRole = role;
+selectedRole = role;
 
-  const userLabel = document.getElementById("userLabel");
-  const tabs = document.querySelectorAll(".tab");
+const userLabel =
+document.getElementById("userLabel");
 
-  tabs.forEach(tab => tab.classList.remove("active"));
+const tabs =
+document.querySelectorAll(".tab");
 
-  if (event) event.currentTarget.classList.add("active");
+tabs.forEach(tab=>{
+tab.classList.remove("active");
+});
 
-  const roleLabels = {
-    student: "Student E-mail",
-    faculty: "Faculty E-mail",
-    admin: "Admin E-mail"
-  };
+event.currentTarget.classList.add("active");
 
-  if (userLabel) {
-    userLabel.innerText = roleLabels[role];
-  }
+if(role==="student"){
+userLabel.innerText="Student E-mail";
+}
+
+else if(role==="faculty"){
+userLabel.innerText="Faculty E-mail";
+}
+
+else if(role==="admin"){
+userLabel.innerText="Admin E-mail";
+}
 
 }
 
 
 /* LOGIN FUNCTION */
 
-async function login() {
+async function login(){
 
-  const email = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value;
+const email = document.getElementById("username").value;
+const password = document.getElementById("password").value;
 
-  if (!email || !password) {
-    alert("Please fill all fields");
-    return;
-  }
+try{
 
-  try {
+const response = await fetch("http://localhost:5000/api/login",{
 
-    const response = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        role: selectedRole
-      })
-    });
+method:"POST",
 
-    const data = await response.json();
+headers:{
+"Content-Type":"application/json"
+},
 
-    console.log("Login response:", data);
+body:JSON.stringify({
+email,
+password,
+role:selectedRole
+})
 
-    if (!response.ok) {
-      alert(data.message || "Login failed");
-      return;
-    }
+});
 
-    alert("Login Successful 🎉");
+const data = await response.json();
 
-    /* ROLE BASED REDIRECT */
+console.log(data);
 
-    const dashboardRoutes = {
-      student: "student-dashboard.html",
-      faculty: "faculty-dashboard.html",
-      admin: "admin-dashboard.html"
-    };
+if(response.ok){
 
-    const redirectPage = dashboardRoutes[data.role];
+alert("Login Successful");
 
-    if (redirectPage) {
-      window.location.href = redirectPage;
-    } else {
-      alert("Unknown role");
-    }
+if(data.role==="student"){
+window.location.href="student_dashboard.html";
+}
 
-  } catch (error) {
+else if(data.role==="faculty"){
+window.location.href="faculty_dashboard.html";
+}
 
-    console.error("Login error:", error);
-    alert("Server Error. Please try again later.");
+else if(data.role==="admin"){
+window.location.href="admin_dashboard.html";
+}
 
-  }
+}
+
+else{
+alert(data.message);
+}
+
+}
+
+catch(error){
+
+alert("Server Error");
+
+}
 
 }
 
 
 /* FORM SUBMIT */
 
-const loginForm = document.getElementById("loginForm");
+document
+.getElementById("loginForm")
+.addEventListener("submit",function(e){
 
-if (loginForm) {
+e.preventDefault();
 
-  loginForm.addEventListener("submit", function (e) {
+login();
 
-    e.preventDefault();
-    login();
-
-  });
-
-}
+});
