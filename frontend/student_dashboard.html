@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Student Dashboard</title>
+
+<link rel="stylesheet" href="student_dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>SPAS</h2>
+
+<ul>
+<li>Dashboard</li>
+<li>Students</li>
+<li>Performance</li>
+<li>Attendance</li>
+<li>Reports</li>
+</ul>
+
+</div>
+
+
+<div class="main">
+
+<div class="header">
+<h1>Dashboard</h1>
+<p>Overview of student performance analytics</p>
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Students</h3>
+<h2 id="totalStudents">--</h2>
+</div>
+
+<div class="card">
+<h3>Average Performance</h3>
+<h2 id="avgPerformance">--</h2>
+</div>
+
+<div class="card">
+<h3>Excellent</h3>
+<h2 id="excellentStudents">--</h2>
+</div>
+
+<div class="card">
+<h3>At Risk</h3>
+<h2 id="riskStudents">--</h2>
+</div>
+
+</div>
+
+
+<div class="charts">
+
+<div class="chart-box">
+Subject-wise Chart
+</div>
+
+<div class="chart-box">
+Performance Distribution Chart
+</div>
+
+</div>
+
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>Course</th>
+<th>Average</th>
+<th>Prediction</th>
+</tr>
+
+<tbody id="studentTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script src="student-dashboard.js"></script>
+
+</body>
+</html>
