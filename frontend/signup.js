@@ -79,9 +79,9 @@ document.getElementById("authForm").addEventListener("submit", async function (e
         if (data.message === "User Registered Successfully") {
 
             if (role === "student") {
-                window.location.href = "student-dashboard.html";
+                window.location.href = "student_dashboard.html";
             } else {
-                window.location.href = "faculty-dashboard.html";
+                window.location.href = "faculty_dashboard.html";
             }
 
         }
@@ -96,5 +96,6 @@ document.getElementById("authForm").addEventListener("submit", async function (e
         alert("Something went wrong. Please try again.");
 
     }
+
 
 });
