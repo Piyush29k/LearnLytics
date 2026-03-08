@@ -1,0 +1,371 @@
+/* CSS RESET & BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+}
+
+body {
+    background: #f6f7fb;
+    color: #222;
+    overflow-x: hidden;
+}
+
+/* NAVBAR */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.signup-btn {
+    text-decoration: none;
+    background: linear-gradient(135deg, #4f5bd5, #3ecf8e);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.signup-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(135deg, #3e49c9, #32b67a);
+}
+
+/* HERO SECTION */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.tag {
+    background: #eef1ff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #4f5bd5;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin: 20px 0;
+    animation: slideUp 1s ease;
+}
+
+.gradient {
+    background: linear-gradient(90deg, #4f5bd5, #3ecf8e);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    max-width: 600px;
+    margin: auto;
+    color: #666;
+}
+
+.buttons {
+    margin-top: 30px;
+}
+
+.primary {
+    background: #4f5bd5;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.secondary {
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+}
+
+/* FEATURES GRID */
+.features {
+    padding: 80px 10%;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.icon {
+    font-size: 24px;
+    color: #4f5bd5;
+    background: #eef1ff;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+/* MODAL SYSTEM */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 8% auto;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-icon-container {
+    background: #eef1ff;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    border-radius: 12px;
+}
+
+#modalIcon {
+    font-size: 28px;
+    color: #4f5bd5;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+/* CTA */
+.cta {
+    margin: 80px 10%;
+    padding: 60px;
+    border-radius: 24px;
+    background: linear-gradient(90deg, #4f5bd5, #3ecf8e);
+    color: white;
+    text-align: center;
+}
+
+.cta button {
+    margin-top: 25px;
+    background: white;
+    padding: 14px 35px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* --- Optimized Transitions --- */
+
+/* Card Hover: Subtle Lift and Shadow Spread */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    /* Smooth entrance for hover state */
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                box-shadow 0.4s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon Pop: Small rotate and scale when card is hovered */
+.card:hover .icon {
+    transform: scale(1.1) rotate(3deg);
+    background: #e0e7ff; /* Slightly deeper blue on hover */
+}
+
+/* Modal Animation: Scale up and Fade in */
+.modal-content {
+    background-color: #fff;
+    margin: 8% auto;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    
+    /* Animation trigger */
+    animation: modalSpring 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes modalSpring {
+    0% {
+        opacity: 0;
+        transform: scale(0.7) translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Modal Overlay Fade */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    transition: opacity 0.3s ease;
+}
+/* --- Global Entrance Animations --- */
+
+/* Initial state for elements we want to animate on scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* State when the element becomes visible */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered delay for the grid cards */
+.grid .card:nth-child(1) { transition-delay: 0.1s; }
+.grid .card:nth-child(2) { transition-delay: 0.2s; }
+.grid .card:nth-child(3) { transition-delay: 0.3s; }
+.grid .card:nth-child(4) { transition-delay: 0.4s; }
+.grid .card:nth-child(5) { transition-delay: 0.5s; }
+.grid .card:nth-child(6) { transition-delay: 0.6s; }
+
+/* Hero text sliding animation */
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero h1, .hero p, .hero .buttons {
+    animation: slideUpFade 1s ease forwards;
+}
+
+.hero p { animation-delay: 0.2s; opacity: 0; }
+.hero .buttons { animation-delay: 0.4s; opacity: 0; }
+
+/* --- Global Entrance Animations --- */
+
+/* Initial state for elements we want to animate on scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* State when the element becomes visible */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered delay for the grid cards */
+.grid .card:nth-child(1) { transition-delay: 0.1s; }
+.grid .card:nth-child(2) { transition-delay: 0.2s; }
+.grid .card:nth-child(3) { transition-delay: 0.3s; }
+.grid .card:nth-child(4) { transition-delay: 0.4s; }
+.grid .card:nth-child(5) { transition-delay: 0.5s; }
+.grid .card:nth-child(6) { transition-delay: 0.6s; }
+
+/* Hero text sliding animation */
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero h1, .hero p, .hero .buttons {
+    animation: slideUpFade 1s ease forwards;
+}
+
+.hero p { animation-delay: 0.2s; opacity: 0; }
+.hero .buttons { animation-delay: 0.4s; opacity: 0; }

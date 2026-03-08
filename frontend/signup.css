@@ -1,0 +1,263 @@
+/* --- Root Variables --- */
+:root {
+    --primary-blue: #536de6;
+    --emerald: #50c878;
+    --dark-blue: #3a52c7;
+    --text-slate: #64748b;
+    --white: #ffffff;
+    --bg-light: #f8fafc;
+}
+
+/* --- Global Resets --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body, html {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-light);
+    overflow-x: hidden;
+}
+
+.split-screen {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* --- Left Panel --- */
+.left-panel {
+    flex: 1;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+}
+
+/* Hide left panel on small screens to save space */
+@media (max-width: 1024px) {
+    .left-panel { display: none; }
+}
+
+.brand-content {
+    max-width: 440px;
+    text-align: left;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.brand-content h2 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.highlight { color: var(--emerald); }
+
+.brand-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+/* --- Right Panel --- */
+.right-panel {
+    flex: 1.2;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 450px;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.badge {
+    background: #eef2ff;
+    color: var(--primary-blue);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-top: 10px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.gradient-text {
+    background: linear-gradient(to right, var(--primary-blue), var(--emerald));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- Signup Card --- */
+.signup-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+}
+
+.tabs {
+    display: flex;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-slate);
+    border-radius: 7px;
+    transition: 0.2s;
+}
+
+.tab.active {
+    background: var(--white);
+    color: var(--primary-blue);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Form Elements --- */
+.input-box {
+    margin-bottom: 14px;
+}
+
+.input-box label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #475569;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.input-box input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    background: #fcfdff;
+}
+
+.signup-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 8px;
+}
+
+.signup-btn:hover {
+    background: var(--dark-blue);
+    transform: translateY(-1px);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: var(--text-slate);
+}
+
+.login-footer a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* --- Animations --- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up { animation: fadeUp 0.6s ease-out forwards; }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-fade-in { animation: fadeIn 1s ease-in forwards; }
+/* --- Right Panel with Blurred Background --- */
+.right-panel {
+    flex: 1.2;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    padding: 40px 20px;
+    
+    /* Image Background Settings */
+    position: relative; /* Necessary for the blur effect */
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.8), rgba(248, 250, 252, 0.8)), /* Light overlay for readability */
+        url('11.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    
+    /* Backdrop-filter creates the slight blur effect */
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px); /* Safari support */
+}
+
+/* --- Update the Form Header Text to White --- */
+.form-header h1 {
+    color: var(--white); /* Changes the main heading to white */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Adds a subtle shadow for better readability against the image */
+}
+
+/* If the text is a paragraph or a different element, use this: */
+.form-header p {
+    color: var(--white);
+    opacity: 1; /* Ensures it isn't slightly transparent/grey */
+}
+
+/* Optional: Make the badge text pop more against the dark background */
+.badge {
+    background: rgba(238, 242, 255, 0.9); /* Slightly more opaque background */
+    backdrop-filter: blur(4px);
+    font-size: medium;
+}

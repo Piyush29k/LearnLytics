@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up | LearnLytics</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="signup.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="split-screen">
+
+<!-- LEFT PANEL -->
+
+<div class="left-panel">
+
+<div class="brand-content animate-fade-up">
+
+<div class="logo">
+    <i class="fa-solid fa-brain"></i>
+    LearnLytics</div>
+
+<h2>
+Unlock Every Student's <br>
+<span class="highlight">Full Potential</span>
+</h2>
+
+<p>
+Monitor performance, predict outcomes, and deliver personalized
+recommendations with our AI-powered analytics engine.
+</p>
+
+</div>
+</div>
+
+
+<!-- RIGHT PANEL -->
+
+<div class="right-panel">
+
+<div class="form-wrapper animate-fade-in">
+
+<div class="form-header animate-delay-1">
+
+<span class="badge">AI-Powered Education Analytics</span>
+
+<h1>
+Join <span class="gradient-text">LearnLytics</span>
+</h1>
+
+<p class="subtitle">
+Start your journey toward data-driven excellence.
+</p>
+
+</div>
+
+
+<div class="signup-card animate-delay-2">
+
+
+<!-- ROLE TABS -->
+
+<div class="tabs">
+
+<button id="studentTab" class="tab active" onclick="setRole('student')">
+Student
+</button>
+
+<button id="facultyTab" class="tab" onclick="setRole('faculty')">
+Faculty
+</button>
+
+</div>
+
+
+<!-- SIGNUP FORM -->
+
+<form id="authForm">
+
+
+<div class="input-grid">
+
+<div class="input-box">
+<label>Name</label>
+<input type="text" id="name" placeholder="Full Name" required>
+</div>
+
+
+<div class="input-box">
+<label id="orgLabel">Branch</label>
+<input type="text" id="orgInput" placeholder="Computer Science">
+</div>
+
+
+<div id="studentFields">
+
+<div class="input-box">
+<label>Session</label>
+<input type="text" id="session" placeholder="2023-2027">
+</div>
+
+<div class="input-box">
+<label>Registration Number</label>
+<input type="text" id="regno" placeholder="Enter ID">
+</div>
+
+</div>
+
+
+<div class="input-box">
+<label>Email Address</label>
+<input type="email" id="email" placeholder="example@univ.edu" required>
+</div>
+
+
+<div class="input-box">
+<label>Password</label>
+<input type="password" id="password" placeholder="••••••••" required>
+</div>
+
+</div>
+
+
+<button type="submit" class="signup-btn">
+Get Started
+</button>
+
+</form>
+
+
+<p class="login-footer">
+Already have an account?
+<a href="login.html">Login</a>
+</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- SIGNUP SCRIPT -->
+
+<script src="signup.js"></script>
+
+</body>
+</html>
