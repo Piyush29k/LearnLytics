@@ -1,0 +1,60 @@
+
+learnlytics/
+│
+├── backend/
+│   │
+│   ├── config/
+│   │   └── db.js
+│   │
+│   ├── models/
+│   │   └── Result.js
+│   │
+│   ├── routes/
+│   │   ├── userRoutes.js
+│   │   └── resultRoutes.js   ← (MAIN LOGIC: PDF + OCR)
+│   │
+│   ├── controllers/
+│   │   └── resultController.js (optional, if you want clean code)
+│   │
+│   ├── services/
+│   │   ├── pdfParser.js      ← pdf-parse logic
+│   │   ├── ocrService.js      ← tesseract OCR logic
+│   │   └── extractService.js  ← BEU parsing logic
+│   │
+│   ├── middleware/
+│   │   └── upload.js         ← multer config
+│   │
+│   ├── utils/
+│   │   ├── cleanText.js
+│   │   └── validators.js
+│   │
+│   ├── app.js
+│   └── server.js
+│
+│
+├── frontend/
+│   │
+│   ├── student_dashboard.html
+│   ├── semester.html
+│   ├── performance.html
+│   │
+│   ├── css/
+│   │   ├── semester.css
+│   │   ├── dashboard.css
+│   │   └── performance.css
+│   │
+│   ├── js/
+│   │   ├── dashboard.js
+│   │   ├── semester.js   ← (PDF upload + table render)
+│   │   └── performance.js
+│   │
+│   └── assets/
+│       ├── images/
+│       └── icons/
+│
+│
+├── uploads/              ← temporary PDF storage (if needed)
+│
+├── package.json
+├── .env
+└── README.md
