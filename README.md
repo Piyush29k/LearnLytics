@@ -124,29 +124,78 @@ Recommendations & Reports
 ## 📂 Project Structure
 
 ```bash
-AI-Based-Student-Performance-Analysis-System/
+learnlytics/
 │
-├── frontend/
-│   ├── student-dashboard/
-│   ├── faculty-dashboard/
-│   ├── admin-dashboard/
-│   ├── assets/
-│   └── styles/
-│
-├── backend/
+├── Backend/
+│   ├── config/
+│   │   └── db.js
 │   ├── controllers/
+│   │   └── resultController.js
 │   ├── middleware/
+│   │   └── upload.js
 │   ├── models/
+│   │   ├── Result.js
+│   │   └── userModel.js
 │   ├── routes/
+│   │   ├── resultRoutes.js
+│   │   └── userRoutes.js
 │   ├── services/
+│   │   ├── extractService.js
+│   │   ├── ocrService.js
+│   │   └── pdfParser.js
+│   ├── utils/
+│   │   ├── cleanText.js
+│   │   └── validators.js
 │   └── server.js
 │
+├── frontend/
+│   │
+│   ├── assets/               ← All images and media
+│   │   ├── 11.jpg
+│   │   └── login.jpg
+│   │
+│   ├── css/                  ← Global and structural stylesheets
+│   │   ├── AI.css
+│   │   ├── faculty.css
+│   │   ├── home.css
+│   │   ├── login.css
+│   │   ├── performance.css
+│   │   ├── profile.css
+│   │   ├── semester.css
+│   │   ├── setting.css
+│   │   ├── signup.css
+│   │   ├── student_dashboard.css
+│   │   └── subject.css
+│   │
+│   ├── js/                   ← Logic, API handlers, and utilities
+│   │   ├── AI.js
+│   │   ├── faculty.js
+│   │   ├── home.js
+│   │   ├── login.js
+│   │   ├── performance.js
+│   │   ├── profile.js
+│   │   ├── semester.js       ← (PDF upload & table rendering logic)
+│   │   ├── setting.js
+│   │   ├── signup.js
+│   │   ├── student_dashboard.js
+│   │   └── subject.js
+│   │
+│   │── AI.html               ← Clean root access for all views
+│   ├── faculty.html
+│   ├── home.html
+│   ├── login.html
+│   ├── performance.html
+│   ├── profile.html
+│   ├── semester.html
+│   ├── setting.html
+│   ├── signup.html
+│   ├── student_dashboard.html
+│   └── subject.html
+│
+├── node_modules/
 ├── uploads/
-├── reports/
-├── database/
-├── .env
-├── package.json
-└── README.md
+├── package-lock.json
+└── package.json
 ```
 
 ---
