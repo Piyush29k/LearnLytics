@@ -1,60 +1,72 @@
-
 learnlytics/
 │
-├── backend/
-│   │
+├── Backend/
 │   ├── config/
 │   │   └── db.js
-│   │
-│   ├── models/
-│   │   └── Result.js
-│   │
-│   ├── routes/
-│   │   ├── userRoutes.js
-│   │   └── resultRoutes.js   ← (MAIN LOGIC: PDF + OCR)
-│   │
 │   ├── controllers/
-│   │   └── resultController.js (optional, if you want clean code)
-│   │
-│   ├── services/
-│   │   ├── pdfParser.js      ← pdf-parse logic
-│   │   ├── ocrService.js      ← tesseract OCR logic
-│   │   └── extractService.js  ← BEU parsing logic
-│   │
+│   │   └── resultController.js
 │   ├── middleware/
-│   │   └── upload.js         ← multer config
-│   │
+│   │   └── upload.js
+│   ├── models/
+│   │   ├── Result.js
+│   │   └── userModel.js
+│   ├── routes/
+│   │   ├── resultRoutes.js
+│   │   └── userRoutes.js
+│   ├── services/
+│   │   ├── extractService.js
+│   │   ├── ocrService.js
+│   │   └── pdfParser.js
 │   ├── utils/
 │   │   ├── cleanText.js
 │   │   └── validators.js
-│   │
-│   ├── app.js
 │   └── server.js
-│
 │
 ├── frontend/
 │   │
-│   ├── student_dashboard.html
-│   ├── semester.html
-│   ├── performance.html
+│   ├── assets/               ← All images and media
+│   │   ├── 11.jpg
+│   │   └── login.jpg
 │   │
-│   ├── css/
+│   ├── css/                  ← Global and structural stylesheets
+│   │   ├── AI.css
+│   │   ├── faculty.css
+│   │   ├── home.css
+│   │   ├── login.css
+│   │   ├── performance.css
+│   │   ├── profile.css
 │   │   ├── semester.css
-│   │   ├── dashboard.css
-│   │   └── performance.css
+│   │   ├── setting.css
+│   │   ├── signup.css
+│   │   ├── student_dashboard.css
+│   │   └── subject.css
 │   │
-│   ├── js/
-│   │   ├── dashboard.js
-│   │   ├── semester.js   ← (PDF upload + table render)
-│   │   └── performance.js
+│   ├── js/                   ← Logic, API handlers, and utilities
+│   │   ├── AI.js
+│   │   ├── faculty.js
+│   │   ├── home.js
+│   │   ├── login.js
+│   │   ├── performance.js
+│   │   ├── profile.js
+│   │   ├── semester.js       ← (PDF upload & table rendering logic)
+│   │   ├── setting.js
+│   │   ├── signup.js
+│   │   ├── student_dashboard.js
+│   │   └── subject.js
 │   │
-│   └── assets/
-│       ├── images/
-│       └── icons/
+│   │── AI.html               ← Clean root access for all views
+│   ├── faculty.html
+│   ├── home.html
+│   ├── login.html
+│   ├── performance.html
+│   ├── profile.html
+│   ├── semester.html
+│   ├── setting.html
+│   ├── signup.html
+│   ├── student_dashboard.html
+│   └── subject.html
 │
-│
-├── uploads/              ← temporary PDF storage (if needed)
-│
-├── package.json
-├── .env
-└── README.md
+├── node_modules/
+├── uploads/
+├── package-lock.json
+└── package.json
