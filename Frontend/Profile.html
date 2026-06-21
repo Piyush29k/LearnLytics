@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnLytics Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/profile.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="graduation-cap"></i>
+                </div>
+
+                <div class="logo-text">
+                    <h2>LearnLytics</h2>
+                    <p>Performance Analytics</p>
+                </div>
+            </div>
+
+            <div class="nav-title"></div>
+
+            <ul class="menu">
+                <ul class="menu">
+
+    <li class="menu-item">
+        <a href="student_dashboard.html">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <li class="menu-item">
+        <a href="performance.html">
+            <i data-lucide="trending-up"></i>
+            <span>Performance</span>
+        </a>
+    </li>
+
+    <li class="menu-item ">
+        <a href="AI.html">
+            <i data-lucide="brain-circuit"></i>
+            <span>AI Prediction</span>
+        </a>
+    </li>
+
+    <li class="menu-item">
+        <a href="subject.html">
+            <i data-lucide="book-open"></i>
+            <span>Subjects</span>
+        </a>
+    </li>
+
+    <li class="menu-item">
+        <a href="semester.html">
+            <i data-lucide="graduation-cap"></i>
+            <span>Semester</span>
+        </a>
+    </li>
+
+    <li class="menu-item active">
+        <a href="Profile.html">
+            <i data-lucide="user"></i>
+            <span>Profile</span>
+        </a>
+    </li>
+
+    <li class="menu-item">
+        <a href="setting.html">
+            <i data-lucide="settings"></i>
+            <span>Settings</span>
+        </a>
+    </li>
+
+</ul>
+            </ul>
+
+            <div class="nav-title">AI Status</div>
+
+            <div class="ai-card">
+                <h3>AI Model: Random Forest</h3>
+                <p>Accuracy <b>92.4%</b> - Last trained 2h ago</p>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="topbar">
+                <div class="title">
+                    <button id="toggleSidebar" class="toggle-btn" aria-label="Toggle sidebar">
+                        <i data-lucide="panel-left"></i>
+                    </button>
+
+                    <div>
+                        <h1>PROFILE</h1>
+                        <p>AI-Based Student Performance Analysis</p>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                   
+
+                    <div class="profile">
+                        <h4>Piyush Kumar</h4>
+                        <span>Student</span>
+                    </div>
+                </div>
+            </div>
+
+           <div id="loader"><div class="spinner"></div><h2>LearnLytics</h2></div>
+
+    <script src="js/profile.js"></script>
+</body>
+
+</html>
