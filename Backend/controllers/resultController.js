@@ -1,3 +1,4 @@
+
 const pdfParse = require("pdf-parse");
 const Tesseract = require("tesseract.js");
 const Result = require("../models/Result");
@@ -22,30 +23,28 @@ async function runOCR(buffer) {
 }
 
 /* =========================
-   SUBJECT EXTRACTION
+   EXTRACT SUBJECTS
 ========================= */
 function extractSubjects(text) {
-  const lines = text.split("\n");
   const subjects = [];
 
-  lines.forEach((line) => {
-    const match = line.match(
-      /^([A-Z0-9]+)\s+(.+?)\s+(\d+)\s+(\d+)\s+(\d+)\s+([A-F+]+)\s+(\d+)$/
-    );
+  const regex =
+    /(\d{6}P?)([A-Za-z&\s]+?)(\d{2})(\d{2})(\d{2})([A-Z+]+)(\d)/g;
 
-    if (match) {
-      subjects.push({
-        subjectCode: match[1],
-        subjectName: match[2],
-        ese: Number(match[3]),
-        ia: Number(match[4]),
-        total: Number(match[5]),
-        grade: match[6],
-        credit: Number(match[7]),
-        type: "THEORY",
-      });
-    }
-  });
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    subjects.push({
+      subjectCode: match[1],
+      subjectName: match[2].trim(),
+      type: match[1].includes("P") ? "PRACTICAL" : "THEORY",
+      ese: Number(match[3]),
+      ia: Number(match[4]),
+      total: Number(match[5]),
+      grade: match[6],
+      credit: Number(match[7]),
+    });
+  }
 
   return subjects;
 }
@@ -64,19 +63,13 @@ exports.uploadResult = async (req, res) => {
       });
     }
 
-    console.log("File Name:", req.file.originalname);
-    console.log("Buffer Exists:", !!req.file.buffer);
-    console.log("Body:", req.body);
-
     let text = "";
 
-    /* PDF PARSE */
     try {
       const pdfData = await pdfParse(req.file.buffer);
       text = pdfData.text || "";
       console.log("PDF Parsed Successfully");
     } catch (err) {
-      console.error("PDF Parse Error:", err.message);
       return res.status(500).json({
         success: false,
         message: "PDF parsing failed",
@@ -84,9 +77,6 @@ exports.uploadResult = async (req, res) => {
       });
     }
 
-    console.log("Text Length:", text.length);
-
-    /* OCR FALLBACK */
     if (!text || text.trim().length < 100) {
       console.log("OCR Triggered...");
       text = await runOCR(req.file.buffer);
@@ -94,34 +84,62 @@ exports.uploadResult = async (req, res) => {
 
     text = cleanText(text);
 
+    console.log("\n========== PDF TEXT ==========\n");
+    console.log(text);
+    console.log("\n==============================\n");
+
     const subjects = extractSubjects(text);
+    console.log("Subjects:", subjects);
 
     console.log("Subjects Found:", subjects.length);
 
-    const regNo = text.match(/\d{10,}/)?.[0] || "UNKNOWN";
+    const regNo =
+      text.match(/Registration No:\s*(\d+)/i)?.[1] ||
+      text.match(/\d{10,}/)?.[0] ||
+      "UNKNOWN";
 
-    const studentNameMatch = text.match(/Name\s*[:\-]?\s*(.+)/i);
-    const studentName = studentNameMatch
-      ? studentNameMatch[1].split("\n")[0].trim()
-      : "Unknown";
-
-const sgpaMatch = text.match(/SGPA\s*[:\-]?\s*([0-9.]+)/i);
-const cgpaMatch = text.match(/CGPA\s*[:\-]?\s*([0-9.]+)/i);
-
-const sgpaValue = sgpaMatch ? parseFloat(sgpaMatch[1]) : 0;
-const cgpaValue = cgpaMatch ? parseFloat(cgpaMatch[1]) : 0;
-
-const sgpa = isNaN(sgpaValue) ? 0 : sgpaValue;
-const cgpa = isNaN(cgpaValue) ? 0 : cgpaValue;
-
-console.log("SGPA:", sgpa);
-console.log("CGPA:", cgpa);
-
-    const resultStatus = text.toLowerCase().includes("fail")
-      ? "FAIL"
-      : "PASS";
+    const studentName =
+      text.match(/Student Name:\s*(.+)/i)?.[1]?.trim() ||
+      "Unknown";
 
     const semester = req.body.semester || "N/A";
+
+    /* =========================
+       SGPA / CGPA
+    ========================= */
+    let sgpa = 0;
+    let cgpa = 0;
+
+const sgpaMatch = text.match(
+  /SGPA(\d+\.\d{2})(\d+\.\d{2})(\d+\.\d{2})(\d+\.\d{2}).*?(\d+\.\d{2})/
+);
+
+if (sgpaMatch) {
+  const sgpas = [
+    sgpaMatch[1], // Sem 1
+    sgpaMatch[2], // Sem 2
+    sgpaMatch[3], // Sem 3
+    sgpaMatch[4], // Sem 4
+  ];
+
+  const semIndex = Number(semester) - 1;
+
+  if (semIndex >= 0 && semIndex < sgpas.length) {
+    sgpa = parseFloat(sgpas[semIndex]);
+  }
+
+  cgpa = parseFloat(sgpaMatch[5]);
+}
+ console.log("SGPA Match:", sgpaMatch);
+    console.log("Semester:", semester);
+    console.log("SGPA:", sgpa);
+    console.log("CGPA:", cgpa);
+
+    const resultStatus = text
+      .toLowerCase()
+      .includes("fail")
+      ? "FAIL"
+      : "PASS";
 
     const newResult = new Result({
       regNo,
@@ -137,21 +155,15 @@ console.log("CGPA:", cgpa);
       subjects,
     });
 
-    console.log("Saving Result...");
     await newResult.save();
-
-    console.log("Result Saved Successfully");
 
     return res.status(200).json({
       success: true,
       message: "Result uploaded successfully",
       data: newResult,
     });
-
   } catch (error) {
-    console.error("===== UPLOAD ERROR =====");
     console.error(error);
-    console.error(error.stack);
 
     return res.status(500).json({
       success: false,
@@ -159,6 +171,7 @@ console.log("CGPA:", cgpa);
     });
   }
 };
+
 /* =========================
    GET LATEST RESULT
 ========================= */
@@ -200,3 +213,4 @@ exports.getAllResults = async (req, res) => {
     });
   }
 };
+
