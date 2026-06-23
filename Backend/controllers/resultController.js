@@ -1,4 +1,3 @@
-
 const pdfParse = require("pdf-parse");
 const Tesseract = require("tesseract.js");
 const Result = require("../models/Result");
@@ -28,8 +27,9 @@ async function runOCR(buffer) {
 function extractSubjects(text) {
   const subjects = [];
 
+  // BEU Result Regex
   const regex =
-    /(\d{6}P?)([A-Za-z&\s]+?)(\d{2})(\d{2})(\d{2})([A-Z+]+)(\d)/g;
+    /(\d{6}P?)([A-Za-z0-9&()\-+.\s]+?)(\d{2})(\d{2})(\d{2})(A\+|A|B|C|D|P|F)(\d+\.\d{2})/g;
 
   let match;
 
@@ -56,6 +56,7 @@ exports.uploadResult = async (req, res) => {
   try {
     console.log("===== UPLOAD START =====");
 
+    // Check file uploaded
     if (!req.file) {
       return res.status(400).json({
         success: false,
@@ -65,9 +66,13 @@ exports.uploadResult = async (req, res) => {
 
     let text = "";
 
+    /* =========================
+       PDF PARSE
+    ========================= */
     try {
       const pdfData = await pdfParse(req.file.buffer);
       text = pdfData.text || "";
+
       console.log("PDF Parsed Successfully");
     } catch (err) {
       return res.status(500).json({
@@ -77,6 +82,9 @@ exports.uploadResult = async (req, res) => {
       });
     }
 
+    /* =========================
+       OCR FALLBACK
+    ========================= */
     if (!text || text.trim().length < 100) {
       console.log("OCR Triggered...");
       text = await runOCR(req.file.buffer);
@@ -88,11 +96,17 @@ exports.uploadResult = async (req, res) => {
     console.log(text);
     console.log("\n==============================\n");
 
+    /* =========================
+       SUBJECT EXTRACTION
+    ========================= */
     const subjects = extractSubjects(text);
-    console.log("Subjects:", subjects);
 
+    console.log("Subjects:", subjects);
     console.log("Subjects Found:", subjects.length);
 
+    /* =========================
+       STUDENT INFO
+    ========================= */
     const regNo =
       text.match(/Registration No:\s*(\d+)/i)?.[1] ||
       text.match(/\d{10,}/)?.[0] ||
@@ -110,37 +124,36 @@ exports.uploadResult = async (req, res) => {
     let sgpa = 0;
     let cgpa = 0;
 
-const sgpaMatch = text.match(
-  /SGPA(\d+\.\d{2})(\d+\.\d{2})(\d+\.\d{2})(\d+\.\d{2}).*?(\d+\.\d{2})/
-);
+    const decimalValues = text.match(/\d+\.\d+/g) || [];
 
-if (sgpaMatch) {
-  const sgpas = [
-    sgpaMatch[1], // Sem 1
-    sgpaMatch[2], // Sem 2
-    sgpaMatch[3], // Sem 3
-    sgpaMatch[4], // Sem 4
-  ];
+    console.log("Decimal Values:", decimalValues);
 
-  const semIndex = Number(semester) - 1;
+    const semIndex = Number(semester) - 1;
 
-  if (semIndex >= 0 && semIndex < sgpas.length) {
-    sgpa = parseFloat(sgpas[semIndex]);
-  }
+    if (semIndex >= 0 && semIndex < decimalValues.length) {
+      sgpa = Number(decimalValues[semIndex]);
+    }
 
-  cgpa = parseFloat(sgpaMatch[5]);
-}
- console.log("SGPA Match:", sgpaMatch);
+    if (decimalValues.length > 0) {
+      cgpa = Number(decimalValues[decimalValues.length - 1]);
+    }
+
     console.log("Semester:", semester);
     console.log("SGPA:", sgpa);
     console.log("CGPA:", cgpa);
 
+    /* =========================
+       RESULT STATUS
+    ========================= */
     const resultStatus = text
       .toLowerCase()
       .includes("fail")
       ? "FAIL"
       : "PASS";
 
+    /* =========================
+       SAVE TO DATABASE
+    ========================= */
     const newResult = new Result({
       regNo,
       studentName,
@@ -157,11 +170,14 @@ if (sgpaMatch) {
 
     await newResult.save();
 
+    console.log("Result Saved Successfully");
+
     return res.status(200).json({
       success: true,
       message: "Result uploaded successfully",
       data: newResult,
     });
+
   } catch (error) {
     console.error(error);
 
@@ -185,6 +201,7 @@ exports.getLatestResult = async (req, res) => {
       success: true,
       data: result,
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -206,6 +223,7 @@ exports.getAllResults = async (req, res) => {
       success: true,
       data: results,
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -214,3 +232,34 @@ exports.getAllResults = async (req, res) => {
   }
 };
 
+/* =========================
+   GET SEMESTER RESULT
+========================= */
+exports.getSemesterResult = async (req, res) => {
+  try {
+    const { regNo, semester } = req.params;
+
+    const result = await Result.findOne({
+      regNo,
+      semester,
+    });
+
+    if (!result) {
+      return res.json({
+        success: false,
+        message: "N/A",
+      });
+    }
+
+    return res.json({
+      success: true,
+      data: result,
+    });
+
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
