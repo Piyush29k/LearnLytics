@@ -25,9 +25,17 @@ const subjectSchema = new mongoose.Schema({
    RESULT SCHEMA
 ========================= */
 const resultSchema = new mongoose.Schema({
-  regNo: { type: String, required: true },
-  studentName: { type: String, required: true },
-  semester: { type: String },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+    index: true
+  },
+
+  regNo: { type: String, required: true, trim: true },
+  rollNo: { type: String, trim: true, default: "" },
+  studentName: { type: String, required: true, trim: true },
+  semester: { type: String, required: true, trim: true },
 
   sgpa: { type: Number, default: 0 },
   cgpa: { type: Number, default: 0 },
@@ -37,7 +45,15 @@ const resultSchema = new mongoose.Schema({
 
   subjects: [subjectSchema],
 
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
 });
+
+resultSchema.pre("save", function setUpdatedAt() {
+  this.updatedAt = new Date();
+});
+
+resultSchema.index({ user: 1, semester: 1 }, { unique: true });
+resultSchema.index({ user: 1, createdAt: -1 });
 
 module.exports = mongoose.model("Result", resultSchema);
