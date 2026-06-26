@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnLytics Semester</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/semester.css">
+    <link rel="stylesheet" href="css/theme.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar" aria-label="Main navigation">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="graduation-cap"></i>
+                </div>
+
+                <div class="logo-text">
+                    <h2>LearnLytics</h2>
+                    <p>Performance Analytics</p>
+                </div>
+            </div>
+
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="student_dashboard.html">
+                        <i data-lucide="layout-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="performance.html">
+                        <i data-lucide="trending-up"></i>
+                        <span>Performance</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="AI.html">
+                        <i data-lucide="brain-circuit"></i>
+                        <span>AI Prediction</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="subject.html">
+                        <i data-lucide="book-open"></i>
+                        <span>Subjects</span>
+                    </a>
+                </li>
+
+                <li class="menu-item active">
+                    <a href="semester.html" aria-current="page">
+                        <i data-lucide="graduation-cap"></i>
+                        <span>Semester</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="Profile.html">
+                        <i data-lucide="user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="setting.html">
+                        <i data-lucide="settings"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="ai-card">
+                <span class="eyebrow">AI Status</span>
+                <h3>Random Forest</h3>
+                <p>Accuracy <b>92.4%</b> - Last trained 2h ago</p>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="title">
+                    <button id="toggleSidebar" class="icon-btn" aria-label="Toggle sidebar">
+                        <i data-lucide="panel-left"></i>
+                    </button>
+
+                    <div>
+                        <h1>Semester</h1>
+                        <p>AI-Based Student Performance Analysis</p>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button id="logoutBtn" class="logout-btn" type="button">
+                        Logout
+                    </button>
+
+                    <div class="profile">
+                        <h4>Student</h4>
+                        <span>Academic profile</span>
+                    </div>
+                </div>
+            </header>
+
+            <section id="semester-dashboard" class="dashboard-shell">
+                <section id="overview" class="overview-section" aria-labelledby="overviewTitle">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Current Result</span>
+                            <h2 id="overviewTitle">Semester Overview</h2>
+                        </div>
+
+                        <span class="status-chip">
+                            <i data-lucide="activity"></i>
+                            Live Summary
+                        </span>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <article class="metric-card">
+                            <span>SGPA</span>
+                            <strong id="sgpaOverview">--</strong>
+                        </article>
+
+                        <article class="metric-card">
+                            <span>CGPA</span>
+                            <strong id="cgpaOverview">--</strong>
+                        </article>
+
+                        <article class="metric-card">
+                            <span>Credits Earned</span>
+                            <strong id="credits">--</strong>
+                        </article>
+
+                        <article class="metric-card">
+                            <span>Result Status</span>
+                            <strong id="resultStatus">--</strong>
+                        </article>
+                    </div>
+
+                    <div class="details-grid">
+                        <article class="info-panel">
+                            <h3>Student Information</h3>
+
+                            <dl>
+                                <div>
+                                    <dt>Name</dt>
+                                    <dd id="studentName">--</dd>
+                                </div>
+
+                                <div>
+                                    <dt>Registration Number</dt>
+                                    <dd id="regNo">--</dd>
+                                </div>
+
+                                <div>
+                                    <dt>Semester</dt>
+                                    <dd id="semester">--</dd>
+                                </div>
+
+                                <div>
+                                    <dt>SGPA</dt>
+                                    <dd id="sgpaInfo">--</dd>
+                                </div>
+
+                                <div>
+                                    <dt>CGPA</dt>
+                                    <dd id="cgpaInfo">--</dd>
+                                </div>
+                            </dl>
+                        </article>
+
+                        <article class="info-panel">
+                            <h3>Performance Summary</h3>
+
+                            <dl>
+                                <div>
+                                    <dt>Highest Subject</dt>
+                                    <dd id="highestSubject">--</dd>
+                                </div>
+
+                                <div>
+                                    <dt>Lowest Subject</dt>
+                                    <dd id="lowestSubject">--</dd>
+                                </div>
+                            </dl>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="semester-results" aria-labelledby="semesterResultsTitle">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Academic Timeline</span>
+                            <h2 id="semesterResultsTitle">Semester Results</h2>
+                        </div>
+                    </div>
+
+                    <div class="semester-container">
+                        <button class="semester-card" type="button" data-semester="1">
+                            <span>Semester 1</span>
+                            <strong id="sgpa-sem-1">SGPA: N/A</strong>
+                        </button>
+
+                        <button class="semester-card" type="button" data-semester="2">
+                            <span>Semester 2</span>
+                            <strong id="sgpa-sem-2">SGPA: N/A</strong>
+                        </button>
+
+                        <button class="semester-card" type="button" data-semester="3">
+                            <span>Semester 3</span>
+                            <strong id="sgpa-sem-3">SGPA: N/A</strong>
+                        </button>
+
+                        <button class="semester-card" type="button" data-semester="4">
+                            <span>Semester 4</span>
+                            <strong id="sgpa-sem-4">SGPA: N/A</strong>
+                        </button>
+
+                        <button class="semester-card" type="button" data-semester="5">
+                            <span>Semester 5</span>
+                            <strong id="sgpa-sem-5">SGPA: N/A</strong>
+                        </button>
+
+                        <button class="semester-card" type="button" data-semester="6">
+                            <span>Semester 6</span>
+                            <strong id="sgpa-sem-6">SGPA: N/A</strong>
+                        </button>
+
+                        <button class="semester-card" type="button" data-semester="7">
+                            <span>Semester 7</span>
+                            <strong id="sgpa-sem-7">SGPA: N/A</strong>
+                        </button>
+
+                        <button class="semester-card" type="button" data-semester="8">
+                            <span>Semester 8</span>
+                            <strong id="sgpa-sem-8">SGPA: N/A</strong>
+                        </button>
+                    </div>
+                </section>
+
+                <section id="subjects" class="subjects-section" aria-labelledby="subjectsTitle">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Result Details</span>
+                            <h2 id="subjectsTitle">Subjects</h2>
+                        </div>
+
+                        <label class="search-field">
+                            <i data-lucide="search"></i>
+                            <input type="text" placeholder="Search subject code or name">
+                        </label>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Subject Code</th>
+                                    <th>Subject Name</th>
+                                    <th>Theory Marks</th>
+                                    <th>Practical Marks</th>
+                                    <th>Total Marks</th>
+                                    <th>Credits</th>
+                                    <th>Grade</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="subjectTableBody">
+                                <tr class="empty-row">
+                                    <td colspan="8">No Result Uploaded Yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="upload-result" class="upload-section" aria-labelledby="uploadTitle">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">PDF Upload</span>
+                            <h2 id="uploadTitle">Upload Result</h2>
+                        </div>
+
+                        <a class="portal-link" href="https://beu-bih.ac.in/result-one" target="_blank" rel="noopener">
+                            <i data-lucide="external-link"></i>
+                            BEU Portal
+                        </a>
+                    </div>
+
+                    <div id="dropZone" class="drop-zone">
+                        <div class="upload-icon">
+                            <i data-lucide="file-up"></i>
+                        </div>
+
+                        <h3>Drop result PDF here</h3>
+                        <p id="fileName">No file selected</p>
+
+                        <label for="pdfFile" class="choose-btn">
+                            Choose PDF File
+                        </label>
+
+                        <input type="file" id="pdfFile" accept=".pdf" hidden>
+                    </div>
+
+                    <button id="uploadBtn" class="upload-btn" type="button">
+                        Upload Result
+                    </button>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <h2>LearnLytics</h2>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/semester.js"></script>
+</body>
+
+</html>

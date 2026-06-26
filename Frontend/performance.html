@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnLytics Performance</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/performance.css">
+    <link rel="stylesheet" href="css/theme.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar" aria-label="Main navigation">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="graduation-cap"></i>
+                </div>
+
+                <div class="logo-text">
+                    <h2>LearnLytics</h2>
+                    <p>Performance Analytics</p>
+                </div>
+            </div>
+
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="student_dashboard.html">
+                        <i data-lucide="layout-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="menu-item active">
+                    <a href="performance.html" aria-current="page">
+                        <i data-lucide="trending-up"></i>
+                        <span>Performance</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="AI.html">
+                        <i data-lucide="brain-circuit"></i>
+                        <span>AI Prediction</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="subject.html">
+                        <i data-lucide="book-open"></i>
+                        <span>Subjects</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="semester.html">
+                        <i data-lucide="graduation-cap"></i>
+                        <span>Semester</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="Profile.html">
+                        <i data-lucide="user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="setting.html">
+                        <i data-lucide="settings"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="ai-card">
+                <span class="eyebrow">AI Status</span>
+                <h3>Random Forest</h3>
+                <p>Accuracy <b>92.4%</b> - Last trained 2h ago</p>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="title">
+                    <button id="toggleSidebar" class="icon-btn" aria-label="Toggle sidebar" type="button">
+                        <i data-lucide="panel-left"></i>
+                    </button>
+
+                    <div>
+                        <h1>Performance</h1>
+                        <p>BEU 2026 academic performance analysis</p>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button id="logoutBtn" class="logout-btn" type="button">
+                        <i data-lucide="log-out"></i>
+                        <span>Logout</span>
+                    </button>
+
+                    <div class="profile">
+                        <h4 id="profileName">Student</h4>
+                        <span id="profileMeta">Performance</span>
+                    </div>
+                </div>
+            </header>
+
+            <section id="performance-dashboard" class="dashboard-shell">
+                <section class="summary-band" aria-labelledby="performanceTitle">
+                    <div>
+                        <span class="eyebrow">BEU 2026 Regulation</span>
+                        <h2 id="performanceTitle">Academic Performance</h2>
+                        <p id="studentContext">Loading result data...</p>
+                    </div>
+
+                    <div id="beuStatus" class="result-chip pending">
+                        <i data-lucide="activity"></i>
+                        <span>Calculating</span>
+                    </div>
+                </section>
+
+                <section class="semester-selector-panel" aria-labelledby="performanceSemesterTitle">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Semester Selection</span>
+                            <h2 id="performanceSemesterTitle">Choose a Semester</h2>
+                        </div>
+
+                        <div class="semester-select-wrap">
+                            <label for="performanceSemesterSelect">Semester</label>
+                            <select id="performanceSemesterSelect">
+                                <option value="">Select semester</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="performanceSemesterCards" class="performance-semester-cards" aria-label="Semester selector"></div>
+
+                    <div id="semesterSelectionMessage" class="selection-message">
+                        Please select a semester to view performance details.
+                    </div>
+                </section>
+
+
+<section class="chart-grid" aria-label="Performance charts">
+                    <article class="chart-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Grade Distribution</span>
+                                <h2>Bar View</h2>
+                            </div>
+                        </div>
+                        <canvas id="gradeDistributionChart"></canvas>
+                    </article>
+
+                    <article class="chart-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Grade Distribution</span>
+                                <h2>Pie View</h2>
+                            </div>
+                        </div>
+                        <canvas id="gradePieChart"></canvas>
+                    </article>
+
+                <section class="metrics-grid" aria-label="Performance summary">
+                    <article class="metric-card">
+                        <div class="metric-icon"><i data-lucide="book-open-check"></i></div>
+                        <span>Total Subjects</span>
+                        <strong id="metricTotalSubjects">--</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-icon"><i data-lucide="badge-check"></i></div>
+                        <span>Passed Subjects</span>
+                        <strong id="metricPassedSubjects">--</strong>
+                    </article>
+
+                    <article class="metric-card danger-card">
+                        <div class="metric-icon"><i data-lucide="triangle-alert"></i></div>
+                        <span>Failed Subjects</span>
+                        <strong id="metricFailedSubjects">--</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-icon"><i data-lucide="percent"></i></div>
+                        <span>Pass Percentage</span>
+                        <strong id="metricPassPercentage">--</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-icon"><i data-lucide="calculator"></i></div>
+                        <span>Calculated SGPA</span>
+                        <strong id="metricCalculatedSgpa">--</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-icon"><i data-lucide="graduation-cap"></i></div>
+                        <span>Calculated CGPA</span>
+                        <strong id="metricCalculatedCgpa">--</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-icon"><i data-lucide="arrow-up-right"></i></div>
+                        <span>Highest Grade</span>
+                        <strong id="metricHighestGrade">--</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-icon"><i data-lucide="arrow-down-right"></i></div>
+                        <span>Lowest Grade</span>
+                        <strong id="metricLowestGrade">--</strong>
+                    </article>
+                </section>
+
+                <section class="highlight-grid" aria-label="Subject highlights">
+                    <article class="info-panel">
+                        <span class="eyebrow">Best Performing Subject</span>
+                        <h3 id="metricBestSubject">--</h3>
+                        <p id="metricBestSubjectMeta">--</p>
+                    </article>
+
+                    <article class="info-panel">
+                        <span class="eyebrow">Weakest Subject</span>
+                        <h3 id="metricWeakestSubject">--</h3>
+                        <p id="metricWeakestSubjectMeta">--</p>
+                    </article>
+
+                    <article class="info-panel">
+                        <span class="eyebrow">Credits Evaluated</span>
+                        <h3 id="metricCreditsEvaluated">--</h3>
+                        <p>SGPA and CGPA use subject credits with BEU grade points.</p>
+                    </article>
+                </section>
+
+                
+
+                    <article class="chart-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Semester Trend</span>
+                                <h2>SGPA Graph</h2>
+                            </div>
+                        </div>
+                        <canvas id="sgpaTrendChart"></canvas>
+                    </article>
+
+                    <article class="chart-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Cumulative Trend</span>
+                                <h2>CGPA Progress</h2>
+                            </div>
+                        </div>
+                        <canvas id="cgpaProgressChart"></canvas>
+                    </article>
+
+                    <article class="chart-panel wide-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Percentage Analysis</span>
+                                <h2>Semester Average Performance</h2>
+                            </div>
+                        </div>
+                        <canvas id="semesterPercentageChart"></canvas>
+                    </article>
+                </section>
+
+                <section class="detail-grid" aria-label="BEU regulation details">
+                    <article class="table-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Classification</span>
+                                <h2>Grade Categories</h2>
+                            </div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Grade</th>
+                                        <th>Percentage Range</th>
+                                        <th>Grade Point</th>
+                                        <th>Total Subjects</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="gradeCategoryTable"></tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <article class="table-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Pass Criteria</span>
+                                <h2>BEU Pass Condition</h2>
+                            </div>
+                        </div>
+
+                        <div class="condition-list">
+                            <div>
+                                <strong>Theory Subject</strong>
+                                <span>Minimum 35% overall and minimum 24.5 marks out of 70 in ESE.</span>
+                            </div>
+                            <div>
+                                <strong>Practical Subject</strong>
+                                <span>Minimum 35% overall and minimum 10.5 marks out of 30 in ESE.</span>
+                            </div>
+                            <div>
+                                <strong>Pass Rule</strong>
+                                <span>Grade P or above is Pass. Grade F is Fail.</span>
+                            </div>
+                        </div>
+
+                        <div class="pass-fail-summary">
+                            <div>
+                                <span>Passed Subjects</span>
+                                <strong id="summaryPassedSubjects">--</strong>
+                            </div>
+                            <div>
+                                <span>Failed Subjects</span>
+                                <strong id="summaryFailedSubjects">--</strong>
+                            </div>
+                            <div>
+                                <span>Pass Percentage</span>
+                                <strong id="summaryPassPercentage">--</strong>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="detail-grid" aria-label="Pass fail subject lists">
+                    <article class="list-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Passed Subjects</span>
+                                <h2>Grade P and Above</h2>
+                            </div>
+                        </div>
+                        <div id="passSubjectList" class="subject-chip-list"></div>
+                    </article>
+
+                    <article class="list-panel fail-list-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Failed Subjects</span>
+                                <h2>Grade F</h2>
+                            </div>
+                        </div>
+                        <div id="failSubjectList" class="subject-chip-list"></div>
+                    </article>
+                </section>
+
+                <section class="table-panel" aria-labelledby="semesterAnalysisTitle">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Percentage Wise</span>
+                            <h2 id="semesterAnalysisTitle">Academic Performance Analysis</h2>
+                        </div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Semester</th>
+                                    <th>Average Percentage</th>
+                                    <th>SGPA</th>
+                                    <th>CGPA</th>
+                                    <th>Best Subject</th>
+                                    <th>Weakest Subject</th>
+                                    <th>Pass Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="semesterPerformanceBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="table-panel" aria-labelledby="subjectAnalysisTitle">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Subject Wise</span>
+                            <h2 id="subjectAnalysisTitle">Grade Points and Pass Status</h2>
+                        </div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Semester</th>
+                                    <th>Subject Code</th>
+                                    <th>Subject</th>
+                                    <th>Type</th>
+                                    <th>Percentage</th>
+                                    <th>ESE Marks</th>
+                                    <th>Grade</th>
+                                    <th>Grade Point</th>
+                                    <th>Credits</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subjectPerformanceBody">
+                                <tr class="empty-row">
+                                    <td colspan="10">No result data available.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <h2>LearnLytics</h2>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/performance.js"></script>
+</body>
+
+</html>

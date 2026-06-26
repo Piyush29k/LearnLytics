@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | LearnLytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <main class="auth-shell">
+        <section class="auth-story" aria-labelledby="login-story-title">
+            <a href="home.html" class="brand">
+                <span class="brand-mark"><i class="fa-solid fa-brain"></i></span>
+                <span>LearnLytics</span>
+            </a>
+
+            <div class="story-copy">
+                <span class="eyebrow"><i class="fa-solid fa-shield-halved"></i> Secure role access</span>
+                <h1 id="login-story-title">Pick up exactly where your academic data left off.</h1>
+                <p>Sign in as a student, faculty member, or admin to continue reviewing performance insights.</p>
+            </div>
+
+            <div class="story-metrics" aria-label="Login page highlights">
+                <div>
+                    <span>Dashboard</span>
+                    <strong>Personalized</strong>
+                </div>
+                <div>
+                    <span>Insights</span>
+                    <strong>Action-ready</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-panel" aria-labelledby="login-title">
+            <div class="auth-card">
+                <div class="card-heading">
+                    <a href="home.html" class="mobile-brand">
+                        <i class="fa-solid fa-brain"></i>
+                        LearnLytics
+                    </a>
+                    <span class="form-kicker">Welcome back</span>
+                    <h2 id="login-title">Login to your account</h2>
+                    <p>Choose your role and enter your credentials to continue.</p>
+                </div>
+
+                <div class="tabs" role="tablist" aria-label="Choose login role">
+                    <button type="button" class="tab active" onclick="setRole('student', event)">
+                        <i class="fa-solid fa-user-graduate"></i>
+                        Student
+                    </button>
+                    <button type="button" class="tab" onclick="setRole('faculty', event)">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        Faculty
+                    </button>
+                    <button type="button" class="tab" onclick="setRole('admin', event)">
+                        <i class="fa-solid fa-user-shield"></i>
+                        Admin
+                    </button>
+                </div>
+
+                <form id="loginForm">
+                    <div class="input-box">
+                        <label id="userLabel" for="username">Student E-mail</label>
+                        <div class="field-shell">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" id="username" class="input-field" placeholder="you@college.edu" required>
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="password">Password</label>
+                        <div class="field-shell password-box">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="password" class="input-field" placeholder="Enter your password" required>
+                            <button type="button" class="eye-button" aria-label="Show or hide password">
+                                <i class="fa-solid fa-eye eye-icon" id="togglePassword"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-footer">
+                        <label class="remember">
+                            <input type="checkbox">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Login
+                    </button>
+                </form>
+
+                <p class="signup-text">
+                    Don't have an account?
+                    <a href="signup.html">Create one</a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnLytics Subjects</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/subject.css">
+    <link rel="stylesheet" href="css/theme.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar" aria-label="Main navigation">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="graduation-cap"></i>
+                </div>
+
+                <div class="logo-text">
+                    <h2>LearnLytics</h2>
+                    <p>Performance Analytics</p>
+                </div>
+            </div>
+
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="student_dashboard.html">
+                        <i data-lucide="layout-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="performance.html">
+                        <i data-lucide="trending-up"></i>
+                        <span>Performance</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="AI.html">
+                        <i data-lucide="brain-circuit"></i>
+                        <span>AI Prediction</span>
+                    </a>
+                </li>
+
+                <li class="menu-item active">
+                    <a href="subject.html" aria-current="page">
+                        <i data-lucide="book-open"></i>
+                        <span>Subjects</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="semester.html">
+                        <i data-lucide="graduation-cap"></i>
+                        <span>Semester</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="Profile.html">
+                        <i data-lucide="user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="setting.html">
+                        <i data-lucide="settings"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="ai-card">
+                <span class="eyebrow">AI Status</span>
+                <h3>Random Forest</h3>
+                <p>Accuracy <b>92.4%</b> - Last trained 2h ago</p>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="title">
+                    <button id="toggleSidebar" class="icon-btn" type="button" aria-label="Toggle sidebar">
+                        <i data-lucide="panel-left"></i>
+                    </button>
+
+                    <div>
+                        <h1>Subjects</h1>
+                        <p>Semester-wise subject marks, grades, SGPA, and result status</p>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button id="logoutBtn" class="logout-btn" type="button">
+                        Logout
+                    </button>
+
+                    <div class="profile">
+                        <h4 id="studentName">Student</h4>
+                        <span id="studentMeta">Academic profile</span>
+                    </div>
+                </div>
+            </header>
+
+            <section id="subjects-dashboard" class="dashboard-shell">
+                <section class="semester-picker" aria-labelledby="semesterPickerTitle">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Academic Range</span>
+                            <h2 id="semesterPickerTitle">Choose Semester</h2>
+                        </div>
+
+                        <span class="count-chip" id="semesterScopeText">Showing all semesters</span>
+                    </div>
+
+                    <div id="semesterButtons" class="semester-buttons" aria-label="Semester selector">
+                        <button class="semester-filter active" type="button" data-semester="ALL">
+                            All Semesters
+                        </button>
+                    </div>
+                </section>
+
+                <section class="summary-grid" aria-label="Subject summary">
+                    <article class="summary-card">
+                        <span>Total Subjects</span>
+                        <strong id="totalSubjects">--</strong>
+                    </article>
+
+                    <article class="summary-card">
+                        <span>Average Marks</span>
+                        <strong id="averageMarks">--</strong>
+                    </article>
+
+                    <article class="summary-card">
+                        <span>Pass Rate</span>
+                        <strong id="passRate">--</strong>
+                    </article>
+
+                    <article class="summary-card">
+                        <span>Needs Focus</span>
+                        <strong id="focusSubject">--</strong>
+                    </article>
+                </section>
+
+                <section class="analytics-grid" aria-label="Subject analytics">
+                    <article class="chart-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Comparison</span>
+                                <h2>Subject Performance</h2>
+                            </div>
+                        </div>
+                        <canvas id="subjectComparisonChart"></canvas>
+                    </article>
+
+                    <article class="chart-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Marks Split</span>
+                                <h2>Theory vs Practical</h2>
+                            </div>
+                        </div>
+                        <canvas id="typeAnalysisChart"></canvas>
+                    </article>
+
+                    <article class="chart-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Trend</span>
+                                <h2>Score Movement</h2>
+                            </div>
+                        </div>
+                        <canvas id="trendChart"></canvas>
+                    </article>
+                </section>
+
+                <section class="subject-controls" aria-label="Subject controls">
+                    <label class="search-field">
+                        <i data-lucide="search"></i>
+                        <input id="subjectSearch" type="text" placeholder="Search subject code, name, or semester">
+                    </label>
+
+                    <label>
+                        <span>Type</span>
+                        <select id="typeFilter">
+                            <option value="ALL">All Types</option>
+                            <option value="THEORY">Theory</option>
+                            <option value="PRACTICAL">Practical</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Grade</span>
+                        <select id="gradeFilter">
+                            <option value="ALL">All Grades</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="P">P</option>
+                            <option value="F">F</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Status</span>
+                        <select id="statusFilter">
+                            <option value="ALL">All Status</option>
+                            <option value="PASS">Pass</option>
+                            <option value="FAIL">Fail</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Sort</span>
+                        <select id="sortSubjects">
+                            <option value="marksDesc">Marks High to Low</option>
+                            <option value="marksAsc">Marks Low to High</option>
+                            <option value="attendanceAsc">Attendance Low to High</option>
+                            <option value="grade">Grade</option>
+                            <option value="creditsDesc">Credits High to Low</option>
+                        </select>
+                    </label>
+                </section>
+
+                <section class="subjects-table-panel" aria-labelledby="subjectsTableTitle">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Detailed Records</span>
+                            <h2 id="subjectsTableTitle">Semester-wise Subjects</h2>
+                        </div>
+
+                        <span class="count-chip" id="visibleCount">0 shown</span>
+                    </div>
+
+                    <div id="semesterSubjectViews" class="semester-subjects">
+                        <div class="empty-state">No subjects available</div>
+                    </div>
+                </section>
+
+                <section class="insights-grid" aria-label="Subject insights">
+                    <article class="insight-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Strengths</span>
+                                <h2>Strong Subjects</h2>
+                            </div>
+                        </div>
+
+                        <div id="strongSubjects" class="insight-list"></div>
+                    </article>
+
+                    <article class="insight-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">Improvement</span>
+                                <h2>Weak Subjects</h2>
+                            </div>
+                        </div>
+
+                        <div id="weakSubjects" class="insight-list"></div>
+                    </article>
+
+                    <article class="insight-panel recommendations">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">AI Guidance</span>
+                                <h2>Recommendations</h2>
+                            </div>
+                        </div>
+
+                        <div id="aiRecommendations" class="recommendation-list"></div>
+                    </article>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <h2>LearnLytics</h2>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/subject.js"></script>
+</body>
+
+</html>

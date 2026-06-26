@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | LearnLytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <main class="signup-shell">
+        <section class="signup-story" aria-labelledby="signup-story-title">
+            <a href="home.html" class="brand">
+                <span class="brand-mark"><i class="fa-solid fa-brain"></i></span>
+                <span>LearnLytics</span>
+            </a>
+
+            <div class="story-copy">
+                <span class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> AI-powered education analytics</span>
+                <h1 id="signup-story-title">Build a clearer path for every learner.</h1>
+                <p>
+                    Create a student or faculty account and start converting academic records into useful,
+                    timely insights.
+                </p>
+            </div>
+
+            <div class="story-grid" aria-label="Signup benefits">
+                <div>
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Performance dashboards</span>
+                </div>
+                <div>
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>Recommendation support</span>
+                </div>
+                <div>
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Report-ready summaries</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-panel" aria-labelledby="signup-title">
+            <div class="form-wrapper">
+                <a href="home.html" class="mobile-brand">
+                    <i class="fa-solid fa-brain"></i>
+                    LearnLytics
+                </a>
+
+                <div class="form-header">
+                    <span class="form-kicker">Create account</span>
+                    <h2 id="signup-title">Join LearnLytics</h2>
+                    <p>Choose your role and fill in the details needed for your dashboard.</p>
+                </div>
+
+                <div class="signup-card">
+                    <div class="tabs" role="tablist" aria-label="Choose signup role">
+                        <button type="button" id="studentTab" class="tab active" onclick="setRole('student')">
+                            <i class="fa-solid fa-user-graduate"></i>
+                            Student
+                        </button>
+                        <button type="button" id="facultyTab" class="tab" onclick="setRole('faculty')">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                            Faculty
+                        </button>
+                    </div>
+
+                    <form id="authForm">
+                        <div class="input-grid">
+                            <div class="input-box">
+                                <label for="name">Name</label>
+                                <div class="field-shell">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="name" placeholder="Full name" required>
+                                </div>
+                            </div>
+
+                            <div class="input-box">
+                                <label id="orgLabel" for="orgInput">Branch</label>
+                                <div class="field-shell">
+                                    <i class="fa-solid fa-building-columns"></i>
+                                    <input type="text" id="orgInput" placeholder="e.g. Computer Science">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="studentFields" class="student-fields">
+                            <div class="input-box">
+                                <label for="session">Session</label>
+                                <div class="field-shell">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <input type="text" id="session" placeholder="2023-2027">
+                                </div>
+                            </div>
+
+                            <div class="input-box">
+                                <label for="regno">Registration Number</label>
+                                <div class="field-shell">
+                                    <i class="fa-solid fa-id-card"></i>
+                                    <input type="text" id="regno" placeholder="Enter registration ID" required>
+                                </div>
+                            </div>
+
+                            <div class="input-box">
+                                <label for="rollNo">Roll Number</label>
+                                <div class="field-shell">
+                                    <i class="fa-solid fa-address-card"></i>
+                                    <input type="text" id="rollNo" placeholder="Optional if shown on result">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-box">
+                            <label for="email">Email Address</label>
+                            <div class="field-shell">
+                                <i class="fa-solid fa-envelope"></i>
+                                <input type="email" id="email" placeholder="example@univ.edu" required>
+                            </div>
+                        </div>
+
+                        <div class="input-box">
+                            <label for="password">Password</label>
+                            <div class="field-shell">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="password" id="password" placeholder="Create a password" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="signup-btn">
+                            <i class="fa-solid fa-user-plus"></i>
+                            Get Started
+                        </button>
+                    </form>
+
+                    <p class="login-footer">
+                        Already have an account?
+                        <a href="login.html">Login</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/signup.js"></script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnLytics AI Assistant</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/AI.css">
+    <link rel="stylesheet" href="css/theme.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="graduation-cap"></i>
+                </div>
+
+                <div class="logo-text">
+                    <h2>LearnLytics</h2>
+                    <p>Performance Analytics</p>
+                </div>
+            </div>
+
+            <div class="nav-title">Navigation</div>
+
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="student_dashboard.html">
+                        <i data-lucide="layout-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="performance.html">
+                        <i data-lucide="trending-up"></i>
+                        <span>Performance</span>
+                    </a>
+                </li>
+
+                <li class="menu-item active">
+                    <a href="AI.html" aria-current="page">
+                        <i data-lucide="brain-circuit"></i>
+                        <span>AI Assistant</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="subject.html">
+                        <i data-lucide="book-open"></i>
+                        <span>Subjects</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="semester.html">
+                        <i data-lucide="graduation-cap"></i>
+                        <span>Semester</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="Profile.html">
+                        <i data-lucide="user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="setting.html">
+                        <i data-lucide="settings"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-title">Advisor</div>
+
+            <div class="ai-card">
+                <h3 id="sidebarCgpa">CGPA --</h3>
+                <p id="sidebarStatus">Waiting for uploaded result data</p>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="topbar">
+                <div class="title">
+                    <button id="toggleSidebar" class="toggle-btn" type="button" aria-label="Toggle sidebar">
+                        <i data-lucide="panel-left"></i>
+                    </button>
+
+                    <div>
+                        <span class="eyebrow">Academic Advisor</span>
+                        <h1>AI Assistant</h1>
+                        <p id="studentContext">Loading student result data...</p>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button id="refreshDataBtn" class="icon-text-btn" type="button">
+                        <i data-lucide="refresh-cw"></i>
+                        <span>Refresh</span>
+                    </button>
+
+                    <div class="profile">
+                        <h4 id="profileName">Student</h4>
+                        <span id="profileMeta">Academic profile</span>
+                    </div>
+                </div>
+            </div>
+
+            <section class="stats-grid" aria-label="Academic statistics">
+                <article class="stat-card">
+                    <span>Current CGPA</span>
+                    <strong id="statCgpa">--</strong>
+                    <small id="statCgpaMeta">No result loaded</small>
+                </article>
+
+                <article class="stat-card">
+                    <span>Average SGPA</span>
+                    <strong id="statAverageSgpa">--</strong>
+                    <small id="statSgpaRange">Range --</small>
+                </article>
+
+                <article class="stat-card">
+                    <span>Credits Earned</span>
+                    <strong id="statCredits">--</strong>
+                    <small id="statPassFail">Pass -- / Fail --</small>
+                </article>
+
+                <article class="stat-card">
+                    <span>Best Semester</span>
+                    <strong id="statBestSemester">--</strong>
+                    <small id="statBestSemesterMeta">SGPA --</small>
+                </article>
+
+                <article class="stat-card">
+                    <span>Best Subject</span>
+                    <strong id="statBestSubject">--</strong>
+                    <small id="statBestSubjectMeta">--</small>
+                </article>
+
+                <article class="stat-card">
+                    <span>Grade Distribution</span>
+                    <strong id="statTopGrade">--</strong>
+                    <small id="statGradeMeta">No grades found</small>
+                </article>
+            </section>
+
+            <section class="workspace-grid">
+                <article class="chat-panel" aria-labelledby="chatTitle">
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">Conversation</span>
+                            <h2 id="chatTitle">Academic Chat</h2>
+                        </div>
+                        <button id="clearChatBtn" class="ghost-btn" type="button">
+                            <i data-lucide="trash-2"></i>
+                            <span>Clear</span>
+                        </button>
+                    </div>
+
+                    <div class="quick-actions" aria-label="Quick actions">
+                        <button type="button" data-query="Analyze my result">
+                            <i data-lucide="sparkles"></i>
+                            <span>Analyze My Result</span>
+                        </button>
+                        <button type="button" data-query="Show CGPA trend">
+                            <i data-lucide="line-chart"></i>
+                            <span>Show CGPA Trend</span>
+                        </button>
+                        <button type="button" data-query="Compare semesters">
+                            <i data-lucide="git-compare"></i>
+                            <span>Compare Semesters</span>
+                        </button>
+                        <button type="button" data-query="Find weak subjects">
+                            <i data-lucide="target"></i>
+                            <span>Find Weak Subjects</span>
+                        </button>
+                        <button type="button" data-query="Predict future CGPA">
+                            <i data-lucide="radar"></i>
+                            <span>Predict Future CGPA</span>
+                        </button>
+                        <button type="button" data-query="Study suggestions">
+                            <i data-lucide="list-checks"></i>
+                            <span>Study Suggestions</span>
+                        </button>
+                    </div>
+
+                    <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+
+                    <form id="chatForm" class="chat-form">
+                        <button id="voiceBtn" class="icon-btn" type="button" aria-label="Use voice input">
+                            <i data-lucide="mic"></i>
+                        </button>
+                        <input id="chatInput" type="text" autocomplete="off" placeholder="Ask about CGPA, weak subjects, credits, trends, or targets">
+                        <button class="send-btn" type="submit">
+                            <i data-lucide="send"></i>
+                            <span>Send</span>
+                        </button>
+                    </form>
+
+                    <div class="upload-row">
+                        <label for="aiPdfUpload">
+                            <i data-lucide="file-up"></i>
+                            <span id="uploadLabel">Upload Result PDF</span>
+                        </label>
+                        <input id="aiPdfUpload" type="file" accept="application/pdf,.pdf">
+                        <button id="explainPdfBtn" class="ghost-btn" type="button">
+                            <i data-lucide="file-search"></i>
+                            <span>Explain PDF</span>
+                        </button>
+                    </div>
+                </article>
+
+                <aside class="advisor-stack">
+                    <article class="panel" aria-labelledby="insightTitle">
+                        <div class="panel-header compact">
+                            <div>
+                                <span class="eyebrow">Signals</span>
+                                <h2 id="insightTitle">Performance Insights</h2>
+                            </div>
+                        </div>
+                        <ul id="insightList" class="signal-list"></ul>
+                    </article>
+
+                    <article class="panel" aria-labelledby="recommendationTitle">
+                        <div class="panel-header compact">
+                            <div>
+                                <span class="eyebrow">Next Steps</span>
+                                <h2 id="recommendationTitle">Smart Recommendations</h2>
+                            </div>
+                        </div>
+                        <ul id="recommendationList" class="signal-list"></ul>
+                    </article>
+
+                    <article class="panel" aria-labelledby="predictionTitle">
+                        <div class="panel-header compact">
+                            <div>
+                                <span class="eyebrow">Forecast</span>
+                                <h2 id="predictionTitle">CGPA Prediction</h2>
+                            </div>
+                        </div>
+                        <div id="predictionText" class="prediction-box">--</div>
+                    </article>
+
+                    <article class="panel" aria-labelledby="historyTitle">
+                        <div class="panel-header compact">
+                            <div>
+                                <span class="eyebrow">Memory</span>
+                                <h2 id="historyTitle">Conversation History</h2>
+                            </div>
+                        </div>
+                        <div id="historyList" class="history-list"></div>
+                    </article>
+                </aside>
+            </section>
+
+            <section class="analysis-grid">
+                <article class="panel comparison-panel" aria-labelledby="comparisonTitle">
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">Semester Comparison</span>
+                            <h2 id="comparisonTitle">Compare Academic Terms</h2>
+                        </div>
+                        <div class="compare-controls">
+                            <select id="compareSemesterA" aria-label="First semester"></select>
+                            <select id="compareSemesterB" aria-label="Second semester"></select>
+                        </div>
+                    </div>
+
+                    <div id="comparisonSummary" class="comparison-summary"></div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th id="subjectCompareA">Semester A</th>
+                                    <th id="subjectCompareB">Semester B</th>
+                                    <th>Difference</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subjectComparisonBody"></tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="panel chart-panel" aria-labelledby="chartTitle">
+                    <div class="panel-header compact">
+                        <div>
+                            <span class="eyebrow">Progress</span>
+                            <h2 id="chartTitle">Academic Charts</h2>
+                        </div>
+                    </div>
+                    <div class="chart-grid">
+                        <div class="chart-box">
+                            <canvas id="sgpaTrendChart"></canvas>
+                        </div>
+                        <div class="chart-box">
+                            <canvas id="gradeDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <h2>LearnLytics</h2>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/AI.js"></script>
+</body>
+
+</html>
