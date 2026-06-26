@@ -2,24 +2,24 @@ const express = require("express");
 const router = express.Router();
 
 const upload = require("../middleware/upload");
+const { requireAuth } = require("../middleware/auth");
 
 const {
   uploadResult,
   getLatestResult,
-  getAllResults
+  getAllResults,
+  getSemesterResult,
 } = require("../controllers/resultController");
 
 /* =========================
    ROUTES
 ========================= */
+router.use(requireAuth);
 
-// Upload PDF result
 router.post("/upload", upload.single("pdf"), uploadResult);
-
-// Get latest result
 router.get("/latest", getLatestResult);
-
-// Get all results
+router.get("/semester/:regNo/:semester", getSemesterResult);
+router.get("/semester/:semester", getSemesterResult);
 router.get("/", getAllResults);
 
 module.exports = router;
