@@ -11,6 +11,10 @@ async function extractTextFromPDF(buffer) {
     }
 
     const data = await pdfParse(buffer);
+    
+      console.log("========== PDF TEXT ==========");
+        console.log(data.text);
+      console.log("========== END PDF TEXT =======");
 
     return {
       success: true,
